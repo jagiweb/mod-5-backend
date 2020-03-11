@@ -1,6 +1,10 @@
 class NewsController < ApplicationController
+    
     def post_news
-        news = News.create(news_params)
+        byebug
+        news = News.new(request.body)
+        news.news_image.attach(params)
+        news.save
         render json: {news: news.news_image}
     end
 
