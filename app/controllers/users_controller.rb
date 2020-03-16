@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
     def admin_signin
-        byebug
         user = User.find_by(username: params[:username])
         if user && user.authenticate(params[:password])
             render json: {username: user.username, token: generate_token({ id: user.id },), id: user.id, user: user}
