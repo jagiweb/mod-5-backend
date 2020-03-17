@@ -12,9 +12,41 @@ class AboutsController < ApplicationController
             title: about.title,
             description: about.description,
             description2: about.description2,
-            description3: about.description3
+            description3: about.description3,
+            id: about.id
             }}
         render json:{ about: about}
+    end
+
+    def show
+        about = About.find_by(id: params[:id])
+        if about 
+            render json: {about: about}
+        else
+            render json:{error: "NOT WORKING"}
+        end
+    end
+
+    def update
+        about = About.find_by(id: params[:id])
+        
+        if about
+            about.update(about_params)
+            render json: {about: about}
+        else
+            render json:{error: "NOT WORKING"}
+        end
+    end
+
+    def destroy
+        about = About.find_by(id: params[:id])
+
+        if about
+            about.destroy
+            render json: {message: "Success"}
+        else
+            render json: {message: "NOT WORKING"}
+        end
     end
 
     private

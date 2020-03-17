@@ -19,6 +19,29 @@ class NewsController < ApplicationController
             render json:{error: "NOT WORKING"}
         end
     end
+
+    def update
+        news = News.find_by(id: params[:id])
+        
+        if news
+            news.update(news_params)
+            render json: {news: news}
+        else
+            render json:{error: "NOT WORKING"}
+        end
+    end
+
+    def destroy
+        news = News.find_by(id: params[:id])
+
+        if news
+            news.destroy
+            render json: {message: "Success"}
+        else
+            render json: {message: "NOT WORKING"}
+        end
+    end
+
     private
 
     def news_params
