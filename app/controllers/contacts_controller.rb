@@ -2,12 +2,12 @@ class ContactsController < ApplicationController
     
     def post_contacts
         contact = Contact.create(contact_params)
-        render json: {image_url: url_for(contact.news_image), contact: contact}
+        render json: {contact: contact}
     end
 
     def all_contacts
         contacts = Contact.all
-        contacts = contacts.map {|contact| {image_url: url_for(contact.contact_image), title: contact.title, description: contact.description, id: contact.id}}
+        contacts = contacts.map {|contact| {name: contact.name, email: contact.email, description: contact.description, id: contact.id}}
         render json:{ contacts: contacts}
     end
 
@@ -34,6 +34,6 @@ class ContactsController < ApplicationController
     private
 
     def contact_params
-        params.permit(:title, :contact_image, :description, :user_id)
+        params.permit(:name, :description, :email)
     end
 end
