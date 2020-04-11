@@ -6,8 +6,25 @@ class WorksController < ApplicationController
 
     def all_work
         works = Work.all
+        if works.length > 20
+            works.first.destroy
+        end
+        works = works.map {|work| {image_url: url_for(work.work_image), title: work.title, id: work.id}}
+        render json:{works: works.last(8)}
+    end
+
+    def all_works_admin
+        works = Work.all
         works = works.map {|work| {image_url: url_for(work.work_image), title: work.title, id: work.id}}
         render json:{works: works}
+    end
+
+    def show_four_more
+        i = 4
+        works = Work.all
+        works = works.map{ |work| {image_url: url_for(work.work_image), title: work.title, id: work.id}}
+        render json:{works: works.slice(i,   i+4)}
+        i = i + 4
     end
 
     def show

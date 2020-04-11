@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   # NEWS ROUTES #####
   post "/post_news", to: "news#post_news"
   get "/all_news", to: "news#all_news"
+  get "/all_news_admin", to: "news#all_news_admin"
+  get "/all_news/showFour", to: "news#show_four_more"
   get "/admin/edit-news/:id", to: "news#show"
   patch "/admin/edit-news/:id", to: "news#update"
   delete "/admin/delete-news/:id", to: "news#destroy"
@@ -21,7 +23,9 @@ Rails.application.routes.draw do
   # WORK ROUTES ####
   post "/post_work", to: "works#post_work"
   get "/all_work", to: "works#all_work"
+  get "/all_works_admin", to: "works#all_works_admin"
   get "/admin/edit-works/:id", to: "works#show"
+  get "/all_works/showFourMore", to: "works#show_four_more"
   patch "/admin/edit-works/:id", to: "works#update"
   delete "/admin/delete-works/:id", to: "works#destroy"
 

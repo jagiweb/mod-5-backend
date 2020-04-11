@@ -7,8 +7,30 @@ class NewsController < ApplicationController
 
     def all_news
         news = News.all
+        if news.length > 20
+            news.first destroy
+        end
         news = news.map {|news| {image_url: url_for(news.news_image), title: news.title, description: news.description, id: news.id}}
-        render json:{ news: news}
+        render json:{ news: news.last(4)}
+    end
+
+    def all_news_admin
+        news = News.all
+        news = news.map {|news| {image_url: url_for(news.news_image), title: news.title, description: news.description, id: news.id}}
+        render json:{news: news}
+    end
+
+    def show_four_more
+        i = 2
+        news = News.all
+        if news.length > 4
+            news = news.map {|news| {image_url: url_for(news.news_image), title: news.title, description: news.description, id: news.id}}
+            render json:{news: news.slice(i, i + 2)}
+            i = i + 2
+        else
+            news = news.map {|news| {image_url: url_for(news.news_image), title: news.title, description: news.description, id: news.id}}
+            render json:{news: news}
+        end
     end
 
     def show
